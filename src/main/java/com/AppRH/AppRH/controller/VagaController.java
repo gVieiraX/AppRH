@@ -1,5 +1,6 @@
 package com.AppRH.AppRH.controller;
 
+import com.AppRH.AppRH.domain.Candidato;
 import com.AppRH.AppRH.domain.Vaga;
 import com.AppRH.AppRH.repository.CandidatoRepository;
 import com.AppRH.AppRH.repository.VagaRepository;
@@ -44,7 +45,14 @@ public class VagaController {
         modelAndView.addObject("vagas",vagas);
         return modelAndView;
     }
-
-    //
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ModelAndView detalhesVaga(@PathVariable("id") long id ){
+        Vaga vaga = vagaRepository.findById(id);
+        ModelAndView modelAndView = new ModelAndView("vaga/detalhesVaga");
+        modelAndView.addObject("vaga",vaga);
+        Iterable<Candidato> candidatos = candidatoRepository.findByVaga(vaga);
+        modelAndView.addObject("candidatos",candidatos);
+        return  modelAndView;
+    }
 
 }
