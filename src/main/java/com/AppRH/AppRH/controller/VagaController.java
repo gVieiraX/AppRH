@@ -39,20 +39,79 @@ public class VagaController {
     }
 
     //LISTA VAGAS
-    public ModelAndView listVagas(){
+    public ModelAndView listVagas() {
         ModelAndView modelAndView = new ModelAndView("vaga/listaVaga");
-        Iterable<Vaga>vagas = vagaRepository.findAll();
-        modelAndView.addObject("vagas",vagas);
+        Iterable<Vaga> vagas = vagaRepository.findAll();
+        modelAndView.addObject("vagas", vagas);
         return modelAndView;
     }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ModelAndView detalhesVaga(@PathVariable("id") long id ){
+    public ModelAndView detalhesVaga(@PathVariable("id") long id) {
         Vaga vaga = vagaRepository.findById(id);
         ModelAndView modelAndView = new ModelAndView("vaga/detalhesVaga");
-        modelAndView.addObject("vaga",vaga);
+        modelAndView.addObject("vaga", vaga);
         Iterable<Candidato> candidatos = candidatoRepository.findByVaga(vaga);
-        modelAndView.addObject("candidatos",candidatos);
-        return  modelAndView;
+        modelAndView.addObject("candidatos", candidatos);
+        return modelAndView;
     }
 
+
+    //DELETA VAGA
+    @RequestMapping("/deletarVaga")
+    public String deletarVaga(long id) {
+        Vaga vaga = vagaRepository.findById(id);
+        vagaRepository.delete(vaga);
+        return "redirect:/vagas";
+    }
+
+    public String detalhesVagaPost(@PathVariable("id") long id, @Valid Candidato candidato, BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            attributes.addFlashAttribute("mensagem", "verifique os campos");
+            return "redirect:/{id}";
+        }
+
+        // rg duplicado
+        if (candidatoRepository.findByRg(candidato.getRg()) != null) {
+            attributes.addFlashAttribute("mensagem erro", "RG DUPLICADO!");
+            return "redirect:/{id}";
+        }
+        Vaga vaga = vagaRepository.findById(id);
+        candidato.setVaga(vaga);
+        candidatoRepository.save(candidato);
+        attributes.addFlashAttribute("mensgem","Candidato adicionao com sucesso!");
+        return "redirect:/{id}";
+    }
+    // DELETA CANDIDATO PELO RG
+    @RequestMapping("/deletarCandidato")
+    public String deletarCandidato(String rg){
+        Candidato candidato = candidatoRepository.findByRg(rg);
+        Vaga vaga = candidato.getVaga();
+        String id = "" + vaga.getId();
+
+        candidatoRepository.delete(candidato);
+        return "redirect:/" + id;
+    }
+
+    //MÉTODOS QUE ATUALIZAM VAGA
+    //formulário edição de vaga
+
+    @RequestMapping(value = "/editar-vaga", method = RequestMethod.GET)
+    public ModelAndView editarVaga(long id){
+        Vaga vaga = vagaRepository.findById(id);
+        ModelAndView modelAndView = new ModelAndView("vaga/update-vaga");
+        modelAndView.addObject("vaga",vaga);
+        return modelAndView;
+    }
+
+    //UPDATE VAGA
+    @RequestMapping(value = "/editar-vaga", method = RequestMethod.POST)
+    public String updateVaga(@Valid Vaga vaga, BindingResult result, RedirectAttributes attributes){
+         vagaRepository.save(vaga);
+         attributes.addFlashAttribute("sucess","vaga alterada com sucesso!");
+
+         long idLong = vaga.getId();
+         String id = "" + idLong;
+         return "redirect:/" + id;
+    }
 }
