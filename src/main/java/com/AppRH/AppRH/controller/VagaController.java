@@ -6,17 +6,19 @@ import com.AppRH.AppRH.repository.CandidatoRepository;
 import com.AppRH.AppRH.repository.VagaRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@RestController
-@RequestMapping("/vaga")
+@Controller
 public class VagaController {
 
+    @Autowired
     private VagaRepository vagaRepository;
 
+    @Autowired
     private CandidatoRepository candidatoRepository;
 
     //CADASTRA VAGA
@@ -39,6 +41,7 @@ public class VagaController {
     }
 
     //LISTA VAGAS
+    @RequestMapping("/vagas")
     public ModelAndView listVagas() {
         ModelAndView modelAndView = new ModelAndView("vaga/listaVaga");
         Iterable<Vaga> vagas = vagaRepository.findAll();
@@ -79,7 +82,7 @@ public class VagaController {
         Vaga vaga = vagaRepository.findById(id);
         candidato.setVaga(vaga);
         candidatoRepository.save(candidato);
-        attributes.addFlashAttribute("mensgem","Candidato adicionao com sucesso!");
+        attributes.addFlashAttribute("mensagem","Candidato adicionao com sucesso!");
         return "redirect:/{id}";
     }
     // DELETA CANDIDATO PELO RG
