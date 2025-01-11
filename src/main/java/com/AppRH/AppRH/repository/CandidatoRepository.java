@@ -11,5 +11,5 @@ public interface CandidatoRepository extends JpaRepository<Candidato,String> {
 
     Candidato findByRg(String rg);
     Candidato findById(long id);
-    List<Candidato> findByNomeCandidato(String nomeCandidato);
+    List<Candidato>findByNomeCandidato(String nomeCandidato);
 }

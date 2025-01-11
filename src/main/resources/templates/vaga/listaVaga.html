@@ -52,15 +52,15 @@
 		</thead>
 		<tbody>
 		<tr th:each="vaga : ${vagas}">
-			<td><a th:href="${(#mvc.url('VC#detalhesVaga').arg(0, vaga.id)).build()}">
+			<td><a th:href="${(#mvc.url('VC#detalhesVaga').arg(0, vaga.codigo)).build()}">
 				<span th:text="${vaga.nome}"></span>
 			</a></td>
 			<td><span th:text="${vaga.descricao}"></span></td>
 			<td>R$ <span th:text="${vaga.salario}"></span></td>
 			<td><span th:text="${vaga.data}"></span></td>
-			<td><a th:href="${(#mvc.url('VC#deletarVaga').arg(0, vaga.id)).build()}"><button type="button"  class="btn btn-danger">Excluir</button></a></td>
-			<td><a th:href="${(#mvc.url('VC#editarVaga').arg(0, vaga.id)).build()}"><button type="button"   class="btn btn-primary">Editar</button></a></td>
-			<td><a th:href="${(#mvc.url('VC#detalhesVaga').arg(0, vaga.id)).build()}"><button type="button" class="btn btn-success">Adicionar candidato</button></a></td>
+			<td><a th:href="${(#mvc.url('VC#deletarVaga').arg(0, vaga.codigo)).build()}"><button type="button"  class="btn btn-danger">Excluir</button></a></td>
+			<td><a th:href="${(#mvc.url('VC#editarVaga').arg(0, vaga.codigo)).build()}"><button type="button"   class="btn btn-primary">Editar</button></a></td>
+			<td><a th:href="${(#mvc.url('VC#detalhesVaga').arg(0, vaga.codigo)).build()}"><button type="button" class="btn btn-success">Adicionar candidato</button></a></td>
 		</tr>
 		</tbody>
 	</table>

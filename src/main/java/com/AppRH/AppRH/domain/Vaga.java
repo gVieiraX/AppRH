@@ -22,8 +22,8 @@ public class Vaga implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Ajustado para MySQL
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long codigo;
 
     @Column(nullable = false, name = "nome_vaga")
     private String nome;
