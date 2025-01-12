@@ -24,16 +24,16 @@ public class Funcionarios implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, name = "nome_funcionario")
+    @Column(nullable = false, name = "nome_funcionarios")
     private String nome;
 
-    @Column(nullable = false, name = "cargo_funcionario")
+    @Column(nullable = false, name = "cargo_funcionarios")
     private String cargo;
 
-    @Column(nullable = false, name = "nome_funcionario")
+    @Column(nullable = false, name = "data_funcionarios")
     private LocalDate data;
 
-    @Column(unique = true, nullable = false, name = "email_funcionario")
+    @Column(unique = true, nullable = false, name = "email_funcionarios")
     private String email;
 
     @OneToMany(mappedBy = "funcionarios", cascade = CascadeType.REMOVE)
