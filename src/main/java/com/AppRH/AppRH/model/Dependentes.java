@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "depedentes")
+@Table(name = "dependentes")
 public class Dependentes implements Serializable {
 
     private static final long serialVersionUID = 1L;
