@@ -1,7 +1,7 @@
 package com.AppRH.AppRH.repository;
 
-import com.AppRH.AppRH.domain.Candidato;
-import com.AppRH.AppRH.domain.Vaga;
+import com.AppRH.AppRH.model.Candidato;
+import com.AppRH.AppRH.model.Vaga;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

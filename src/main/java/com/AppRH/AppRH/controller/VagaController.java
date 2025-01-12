@@ -1,7 +1,7 @@
 package com.AppRH.AppRH.controller;
 
-import com.AppRH.AppRH.domain.Candidato;
-import com.AppRH.AppRH.domain.Vaga;
+import com.AppRH.AppRH.model.Candidato;
+import com.AppRH.AppRH.model.Vaga;
 import com.AppRH.AppRH.repository.CandidatoRepository;
 import com.AppRH.AppRH.repository.VagaRepository;
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.AppRH.AppRH.domain;
+package com.AppRH.AppRH.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
