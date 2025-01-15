@@ -67,4 +67,23 @@ public class FuncionariosController {
 
     }
 
+    //Adicionar dependentes
+    @RequestMapping(value = "/dependentes/{id}", method = RequestMethod.POST)
+    public String dependentesPost(@PathVariable("id") long id, Dependentes dependentes, BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            attributes.addFlashAttribute("mensagem", "Verifique os campos!");
+            return "redirect:/dependentes/{id}";
+        }
+
+        if (dependentesRepository.findByCpf(dependentes.getCpf()) != null) {
+            attributes.addFlashAttribute("mensagem", "CPF duplicado");
+            return "redirrect:/dependentes/{id}";
+        }
+        Funcionarios funcionarios = funcionariosRepository.findById(id);
+        dependentes.setFuncionarios(funcionarios);
+        dependentesRepository.save(dependentes);
+        attributes.addFlashAttribute("mensagem","Dependente adicionado com sucesso!");
+        return  "redirrect:/dependentes/{id}";
+    }
+
 }
