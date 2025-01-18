@@ -93,4 +93,35 @@ public class FuncionariosController {
         return "redirect:/funcionarios";
     }
 
+    //Métodos que atualizam funcionário
+    //Form
+    @RequestMapping(value = "/editar-funcionario", method = RequestMethod.GET)
+    public ModelAndView editarFuncionario(long id){
+        Funcionarios funcionarios = funcionariosRepository.findById(id);
+        ModelAndView modelAndView = new ModelAndView("funcionario/update-funcionario");
+        modelAndView.addObject("funcionario", funcionarios);
+        return  modelAndView;
+    }
+
+    //Update Funcionário
+    @RequestMapping(value = "/editar-funcionario", method = RequestMethod.POST)
+    public String updateFuncionario(@Valid Funcionarios funcionarios, BindingResult result, RedirectAttributes attributes){
+        funcionariosRepository.save(funcionarios);
+        attributes.addFlashAttribute("success","Funcionário  alterado com sucesso!");
+
+        long idLong = funcionarios.getId();
+        String id = "" + idLong;
+        return "redirect:/dependentes/" + id;
+    }
+    // Deletar dependente
+    @RequestMapping("/deletarDependente")
+    public String deletarDependente(String cpf){
+        Dependentes dependentes = dependentesRepository.findByCpf(cpf);
+
+        Funcionarios funcionarios = dependentes.getFuncionarios();
+        String codigo = "" + funcionarios.getId();
+
+        dependentesRepository.delete(dependentes);
+        return "redirect:/dependentes/" + codigo;
+    }
 }
