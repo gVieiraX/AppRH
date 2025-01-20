@@ -77,13 +77,13 @@ public class FuncionariosController {
 
         if (dependentesRepository.findByCpf(dependentes.getCpf()) != null) {
             attributes.addFlashAttribute("mensagem", "CPF duplicado");
-            return "redirrect:/dependentes/{id}";
+            return "redirect:/dependentes/{id}";
         }
         Funcionarios funcionarios = funcionariosRepository.findById(id);
         dependentes.setFuncionarios(funcionarios);
         dependentesRepository.save(dependentes);
         attributes.addFlashAttribute("mensagem","Dependente adicionado com sucesso!");
-        return  "redirrect:/dependentes/{id}";
+        return  "redirect:/dependentes/{id}";
     }
     // Deletar funcionario
     @RequestMapping("/deletarFuncionario")
@@ -103,15 +103,17 @@ public class FuncionariosController {
         return  modelAndView;
     }
 
-    //Update Funcionário
+    // update funcionário
     @RequestMapping(value = "/editar-funcionario", method = RequestMethod.POST)
-    public String updateFuncionario(@Valid Funcionarios funcionarios, BindingResult result, RedirectAttributes attributes){
-        funcionariosRepository.save(funcionarios);
-        attributes.addFlashAttribute("success","Funcionário  alterado com sucesso!");
+    public String updateFuncionario(@Valid Funcionarios funcionario,  BindingResult result, RedirectAttributes attributes){
 
-        long idLong = funcionarios.getId();
+        funcionariosRepository.save(funcionario);
+        attributes.addFlashAttribute("successs", "Funcionário alterado com sucesso!");
+
+        long idLong = funcionario.getId();
         String id = "" + idLong;
         return "redirect:/dependentes/" + id;
+
     }
     // Deletar dependente
     @RequestMapping("/deletarDependente")
