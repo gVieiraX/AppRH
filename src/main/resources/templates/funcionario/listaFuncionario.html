@@ -74,16 +74,17 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr th:each="funcionarios : ${funcionarios}">
 
-            <td><a href="#"><span></span></a></td>
-            <td><span></span></td>
-            <td><span></span></td>
-            <td><a href="#" class="waves-effect waves-light btn-small"><button type="button"
-                                                                               class="btn btn-danger">Excluir</button></a></td>
-            <td><a href="#"><button type="button" class="btn btn-primary">Editar</button></a></td>
+            <td><a th:href="${(#mvc.url('FC#dependentes').arg(0, funcionarios.id)).build()}"><span th:text="${funcionarios.nome}"></span></a></td>
+            <td><span th:text="${funcionarios.data}"></span></td>
+            <td><span th:text="${funcionarios.email}"></span></td>
+            <td><span th:text="${funcionarios.cargo}"></span></td>
+            <td><a th:href="${(#mvc.url('FC#deletarFuncionario').arg(0, funcionarios.id)).build()}" class="waves-effect waves-light btn-small"><button type="button"
+                                                                                                                                                      class="btn btn-danger">Excluir</button></a></td>
+            <td><a th:href="${(#mvc.url('FC#editarFuncionario').arg(0, funcionarios.id)).build()}"><button type="button" class="btn btn-primary">Editar</button></a></td>
 
-            <td><a href="#"><button type="button" class="btn btn-success">Adicionar
+            <td><a th:href="${(#mvc.url('FC#dependentes').arg(0, funcionarios.id)).build()}"><button type="button" class="btn btn-success">Adicionar
                 dependente</button></a></td>
 
         </tr>
