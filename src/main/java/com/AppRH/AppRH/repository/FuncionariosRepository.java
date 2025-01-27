@@ -10,6 +10,6 @@ public interface FuncionariosRepository extends JpaRepository<Funcionarios,Strin
     Funcionarios findById(long id);
     Funcionarios findByNome(String nome);
 
-    @Query(value = "select u from u Funcionarios u.nome like %?1%")
+    @Query(value = "select u from Funcionarios u where u.nome like %?1%")
     List<Funcionarios> findByNomes(String nome);
 }

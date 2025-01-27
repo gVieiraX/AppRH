@@ -12,7 +12,7 @@ public interface VagaRepository extends JpaRepository<Vaga,String> {
     Vaga findByCodigo(long codigo);
     List<Vaga> findByNome(String nome);
 
-    @Query(value = "select u from u Vaga u.nome like %?1%")
+    @Query(value = "select u from Vaga u where u.nome like %?1%")
     List<Vaga> findByNomesVagas(String nome);
 }
 

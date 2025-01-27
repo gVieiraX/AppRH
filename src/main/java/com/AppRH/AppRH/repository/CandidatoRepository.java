@@ -14,7 +14,7 @@ public interface CandidatoRepository extends JpaRepository<Candidato,String> {
     Candidato findById(long id);
     List<Candidato>findByNomeCandidato(String nomeCandidato);
 
-    @Query(value = "select u from u Candidato u.nomeCandidato like %?1%")
+    @Query(value = "select u from Candidato u where u.nomeCandidato like %?1%")
     List<Candidato> findByNomesCandidatos(String nome);
 
 }
